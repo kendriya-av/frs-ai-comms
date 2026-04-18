@@ -1,0 +1,20 @@
+#	Item	Task	Module	Status	Comments
+1	Anitha will be removing Reddit Sentiment as it is not allowed by Fed	Remove Reddit Sentiment	LiveFed Data	Completed	
+2	Validate if Live Fed is updating Sentiments after selecting Fetch now.	Validate Live Fed Sentiment update after Fetch now	LiveFed Data	Completed	Social posts is not updating. It is possible that data doesn't have social post. We are ok with it as the functionality is working and other sections like total items, news article are updating.
+6	Classified/Unclassified button not working in Inquiry Queue	Fix Categorization button	Inquiry & Response	Open to be Fixed	Picture
+7	AI Draft response, Templates so that we can have option to select the template that we want.	Enable AI Draft response and template selection	Inquiry & Response	Completed	
+8	Social posts from 'Insight Report', 'Sentiment Analysis' are not updating after uploaded the data	Fix Insights Report & Sentiment Analysis social posts update	Insights Report; Sentiment Monitor	Completed	
+9	Generate Test Data	Create test data			
+10		Responsible AI posture confidence metrics not responsive	Trust and Safety	Open to be Fixed	
+11		Guardrail details section - add bullet pt stating - "Model ensures no policy predictions made and no financial advise is provided"	Trust & Safety	Open to be Fixed	
+12		Remove section Inquiry viewer and AI Draft response section	Communications Hub	Open to be Fixed	
+13	Word cloud nto working correctly, also can we put in time period for cloud to get generated?	"Wordcloud section:
+1. Fix cloud representative of key words not focus on words like Fed. 
+2. Rename from ""Trending TOpics"" to ""Fed in News""
+3. Can we add dates filter?"	Insights Report	Open to be Fixed	
+14		Trending Topics move to place of Sentiment Distribution by shifting to left, and allow for more topics than 6 lines	Communications Hub	Open to be Fixed	
+15		Move Sentiment Analysis under the Risk & Negative Sentiment  Alerts and make chart donut type.	Communications Hub	Open to be Fixed	
+16		Chart colors  uniform across bar and pie charts they are different	Sentiment Analysis 	Open to be Fixed	
+17		ROI Calculator default to pragmatic values	ROI	Open to be Fixed	
+18		Grey out (or mark in different color) for modules Generate Test Data, Scoring & AI Info and move to bottom of list as these are not user features and we developed it to only for our testing purpose.	Generate Test Data, Scoring & AI Info		
+19		Sentiment by Outlet: Have the ability to see trending on a defined time basis. For example, in February the negative sentiment was 10, in March it was 25 and now in April we have 35. Highly helpful for Comms Team to see how each sentiment is trending daily, weekly, monthly, quarterly and annually.  	Sentiment Analysis 	Open to be Fixed	
