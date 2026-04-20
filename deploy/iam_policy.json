@@ -1,0 +1,27 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ComprehendAccess",
+      "Effect": "Allow",
+      "Action": [
+        "comprehend:DetectSentiment",
+        "comprehend:DetectEntities",
+        "comprehend:DetectKeyPhrases",
+        "comprehend:BatchDetectSentiment",
+        "comprehend:ClassifyDocument"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "BedrockAccess",
+      "Effect": "Allow",
+      "Action": [
+        "bedrock:InvokeModel",
+        "bedrock:InvokeModelWithResponseStream",
+        "bedrock:ListFoundationModels"
+      ],
+      "Resource": "*"
+    }
+  ]
+}

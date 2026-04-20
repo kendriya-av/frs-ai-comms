@@ -1,0 +1,76 @@
+Judging Panel:
+•	2-3 judges from VP/SVP level
+•	Mix of business and technical leadership
+•	Consider including someone from each major department
+Presentation Format:
+•	Total time per team: 20 minutes
+o	12 minutes: Presentation
+o	5 minutes: Demo
+o	3 minutes: Q&A
+
+Judging Categories & Scoring:
+Category 1: Business Value & Impact (25 points)
+Does this solution address a real central bank need?
+Criteria	Points	Comment
+Clear problem definition	5	
+Potential impact on efficiency/effectiveness	10	
+Feasibility of implementation	5	
+Scalability potential	5	
+Scoring Guide:
+•	5 = Exceptional, transformative potential
+•	4 = Strong business case
+•	3 = Moderate value
+•	2 = Limited value
+•	1 = Unclear value
+
+Category 2: Technical Innovation & Quality (25 points)
+How well did they leverage AI/ML and AWS capabilities?
+Criteria	Points	Comment
+Appropriate use of AI/ML techniques	8	
+Technical architecture quality	7	
+Use of AWS services	5	
+Code quality and documentation	5	
+Scoring Guide:
+•	Consider innovation within team's skill level
+•	Reward creative solutions over complex ones
+•	Technical feasibility matters
+
+Category 3: User Experience & Design (20 points)
+Is the solution intuitive and useful?
+Criteria	Points	Comment
+Interface design and usability	8	
+Clarity of AI outputs/explanations	7	
+Demonstration quality	5	
+Scoring Guide:
+•	Does it solve the user's problem elegantly?
+•	Can non-technical users understand and use it?
+•	Are AI decisions explainable?
+
+Category 4: Teamwork & Execution (15 points)
+How well did the team work together?
+Criteria	Points	Comment
+Cross-functional collaboration	5	
+Presentation quality and clarity	5	
+Project management (completing in 10 hours)	5	
+Scoring Guide:
+•	Evidence of diverse skills utilized
+•	Clear communication
+•	Realistic scope management
+
+Category 5: AI Literacy & Learning (15 points)
+Did the team demonstrate growth in AI understanding?
+Criteria	Points	Comment
+Understanding of AI capabilities and limitations	8	
+Responsible AI considerations (bias, privacy, ethics)	7	
+Scoring Guide:
+•	This is about learning, not just building
+•	Reward thoughtful consideration of AI implications
+•	Acknowledge learning journey, especially for beginners
+
+Total: 100 points
+Award Categories:
+1.	🏆 Grand Winner (Highest overall score)
+2.	💡 Most Innovative Solution (Judges' special recognition)
+3.	🎯 Best Business Impact (Highest Category 1 score)
+4.	🤝 Best Team Collaboration (Peer-nominated, optional)
+5.	📚 Best Learning Journey (Most growth in AI literacy)
