@@ -1,0 +1,207 @@
+<mxfile host="app.diagrams.net" modified="2026-04-19T00:00:00.000Z" agent="FRBSF AI Comms" version="24.0.0" type="device">
+  <diagram id="c1-system-context" name="C1 System Context">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- TITLE                                                          -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <mxCell id="title" value="&lt;b&gt;C1 — System Context Diagram&lt;/b&gt;&lt;br&gt;FRBSF AI Communications Intelligence System" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=16;fontColor=#0A1628;" vertex="1" parent="1">
+          <mxGeometry x="520" y="10" width="400" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- PERSONS (top row)                                              -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+
+        <!-- Communications Officer -->
+        <mxCell id="person-comms" value="&lt;b&gt;Communications&lt;br&gt;Officer&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;[Person]&lt;br&gt;Reviews AI drafts,&lt;br&gt;monitors sentiment,&lt;br&gt;manages inquiry queue&lt;/font&gt;" style="shape=mxgraph.c4.person2;whiteSpace=wrap;html=1;container=0;spriteWidth=44;spriteHeight=58;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;fontSize=11;fillColor=#0A1628;fontColor=#0A1628;strokeColor=#0A1628;" vertex="1" parent="1">
+          <mxGeometry x="200" y="70" width="120" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Leadership -->
+        <mxCell id="person-leadership" value="&lt;b&gt;Leadership /&lt;br&gt;Executives&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;[Person]&lt;br&gt;Consumes insights&lt;br&gt;reports, monitors&lt;br&gt;sentiment trends&lt;/font&gt;" style="shape=mxgraph.c4.person2;whiteSpace=wrap;html=1;container=0;spriteWidth=44;spriteHeight=58;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;fontSize=11;fillColor=#0A1628;fontColor=#0A1628;strokeColor=#0A1628;" vertex="1" parent="1">
+          <mxGeometry x="660" y="70" width="120" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Public / Media / Stakeholders -->
+        <mxCell id="person-public" value="&lt;b&gt;Public / Media /&lt;br&gt;Stakeholders&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;[Person]&lt;br&gt;Sends inquiries via&lt;br&gt;email, web, letter, phone&lt;/font&gt;" style="shape=mxgraph.c4.person2;whiteSpace=wrap;html=1;container=0;spriteWidth=44;spriteHeight=58;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;fontSize=11;fillColor=#1B65A6;fontColor=#1B65A6;strokeColor=#1B65A6;" vertex="1" parent="1">
+          <mxGeometry x="1120" y="70" width="120" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- CENTRAL SYSTEM                                                 -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <mxCell id="system-main" value="&lt;b style=&quot;font-size:14px&quot;&gt;FRBSF AI Communications&lt;br&gt;Intelligence System&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;font style=&quot;font-size:11px&quot;&gt;[Software System]&lt;br&gt;&lt;br&gt;Python / Dash web application that classifies&lt;br&gt;incoming inquiries, monitors public sentiment,&lt;br&gt;drafts professional responses, detects&lt;br&gt;communication risks, and generates&lt;br&gt;executive insights reports.&lt;br&gt;&lt;br&gt;Hosted on AWS App Runner (Docker container)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0A1628;fontColor=#FFFFFF;strokeColor=#0A1628;arcSize=8;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="460" y="310" width="520" height="200" as="geometry" />
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- ARROWS: Persons → System                                       -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <mxCell id="arrow-comms-sys" value="Uses&lt;br&gt;[Web Browser / HTTPS]" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;fontSize=10;fontColor=#6B7A99;strokeColor=#0A1628;strokeWidth=1.5;" edge="1" source="person-comms" target="system-main" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="arrow-lead-sys" value="Views reports&lt;br&gt;[Web Browser / HTTPS]" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=10;fontColor=#6B7A99;strokeColor=#0A1628;strokeWidth=1.5;" edge="1" source="person-leadership" target="system-main" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="arrow-public-sys" value="Sends inquiries&lt;br&gt;[Email, Web Form,&lt;br&gt;Letter, Phone]" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.25;entryDx=0;entryDy=0;fontSize=10;fontColor=#6B7A99;strokeColor=#1B65A6;strokeWidth=1.5;" edge="1" source="person-public" target="system-main" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- AWS AI SERVICES (left)                                         -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+
+        <!-- Amazon Comprehend -->
+        <mxCell id="ext-comprehend" value="&lt;b&gt;Amazon Comprehend&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;[External System — AWS]&lt;br&gt;&lt;br&gt;NLP service: sentiment analysis,&lt;br&gt;entity extraction, key phrase&lt;br&gt;detection, text classification&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FF9900;fontColor=#FFFFFF;strokeColor=#FF9900;arcSize=8;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="580" width="240" height="120" as="geometry" />
+        </mxCell>
+
+        <!-- Amazon Bedrock -->
+        <mxCell id="ext-bedrock" value="&lt;b&gt;Amazon Bedrock (Claude)&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;[External System — AWS]&lt;br&gt;&lt;br&gt;LLM service: response drafting,&lt;br&gt;insights report generation,&lt;br&gt;risk identification, data generation&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#232F3E;fontColor=#FFFFFF;strokeColor=#232F3E;arcSize=8;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="740" width="240" height="120" as="geometry" />
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- DATA SOURCES (right)                                           -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+
+        <!-- Public RSS Feeds -->
+        <mxCell id="ext-rss" value="&lt;b&gt;Public RSS Feeds&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;[External System]&lt;br&gt;&lt;br&gt;federalreserve.gov (FOMC,&lt;br&gt;press releases, speeches),&lt;br&gt;CNBC, NY Times, Reuters,&lt;br&gt;Bloomberg, Washington Post,&lt;br&gt;NPR, AP News, Yahoo Finance, Axios&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2E7D32;fontColor=#FFFFFF;strokeColor=#2E7D32;arcSize=8;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="1180" y="580" width="240" height="140" as="geometry" />
+        </mxCell>
+
+        <!-- GitHub Sample Data -->
+        <mxCell id="ext-github" value="&lt;b&gt;GitHub Sample Data&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;[External System]&lt;br&gt;&lt;br&gt;Pre-loaded demo data:&lt;br&gt;inquiries, social media posts,&lt;br&gt;news articles, response templates&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#6B7A99;fontColor=#FFFFFF;strokeColor=#6B7A99;arcSize=8;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="1180" y="760" width="240" height="110" as="geometry" />
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- ARROWS: System ↔ AWS AI Services                               -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <mxCell id="arrow-sys-comprehend" value="Classifies text,&lt;br&gt;analyzes sentiment&lt;br&gt;[boto3 SDK]" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontSize=10;fontColor=#6B7A99;strokeColor=#FF9900;strokeWidth=1.5;" edge="1" source="system-main" target="ext-comprehend" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="arrow-sys-bedrock" value="Generates drafts,&lt;br&gt;reports, risk analysis&lt;br&gt;[boto3 SDK]" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontSize=10;fontColor=#6B7A99;strokeColor=#232F3E;strokeWidth=1.5;" edge="1" source="system-main" target="ext-bedrock" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- ARROWS: System ↔ Data Sources                                  -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <mxCell id="arrow-sys-rss" value="Fetches live data&lt;br&gt;[HTTP / RSS]" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=10;fontColor=#6B7A99;strokeColor=#2E7D32;strokeWidth=1.5;" edge="1" source="system-main" target="ext-rss" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="arrow-sys-github" value="Loads sample data&lt;br&gt;[HTTPS]" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=10;fontColor=#6B7A99;strokeColor=#6B7A99;strokeWidth=1.5;dashed=1;" edge="1" source="system-main" target="ext-github" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- AWS INFRASTRUCTURE (bottom)                                    -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+
+        <!-- Boundary box for AWS Infrastructure -->
+        <mxCell id="aws-boundary" value="&lt;b&gt;AWS Cloud (us-east-1)&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#1B65A6;strokeWidth=2;dashed=1;dashPattern=5 5;verticalAlign=top;fontSize=12;fontColor=#1B65A6;arcSize=4;" vertex="1" parent="1">
+          <mxGeometry x="300" y="580" width="560" height="340" as="geometry" />
+        </mxCell>
+
+        <!-- App Runner -->
+        <mxCell id="infra-apprunner" value="&lt;b&gt;AWS App Runner&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;Managed container hosting&lt;br&gt;1 vCPU, 2 GB RAM&lt;br&gt;HTTPS endpoint&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B65A6;fontColor=#FFFFFF;strokeColor=#1B65A6;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="330" y="620" width="180" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- ECR -->
+        <mxCell id="infra-ecr" value="&lt;b&gt;Amazon ECR&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;Container image registry&lt;br&gt;Docker images&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B65A6;fontColor=#FFFFFF;strokeColor=#1B65A6;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="550" y="620" width="160" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- S3 -->
+        <mxCell id="infra-s3" value="&lt;b&gt;Amazon S3&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;Source artifact storage&lt;br&gt;Deployment zip files&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B65A6;fontColor=#FFFFFF;strokeColor=#1B65A6;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="330" y="740" width="160" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- CodeBuild -->
+        <mxCell id="infra-codebuild" value="&lt;b&gt;AWS CodeBuild&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;CI/CD pipeline&lt;br&gt;Docker build → ECR push&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B65A6;fontColor=#FFFFFF;strokeColor=#1B65A6;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="530" y="740" width="180" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- IAM -->
+        <mxCell id="infra-iam" value="&lt;b&gt;AWS IAM&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;Roles: CodeBuild,&lt;br&gt;AppRunner ECR Access,&lt;br&gt;AppRunner Task Role&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B65A6;fontColor=#FFFFFF;strokeColor=#1B65A6;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="740" y="740" width="100" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- ARROWS: Infrastructure                                         -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+
+        <!-- System hosted on App Runner -->
+        <mxCell id="arrow-sys-apprunner" value="Hosted on" style="edgeStyle=orthogonalEdgeStyle;rounded=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=10;fontColor=#6B7A99;strokeColor=#1B65A6;strokeWidth=1.5;dashed=1;" edge="1" source="system-main" target="infra-apprunner" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- App Runner pulls from ECR -->
+        <mxCell id="arrow-apprunner-ecr" value="Pulls image" style="rounded=1;fontSize=10;fontColor=#6B7A99;strokeColor=#1B65A6;strokeWidth=1;dashed=1;" edge="1" source="infra-apprunner" target="infra-ecr" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- CodeBuild pushes to ECR -->
+        <mxCell id="arrow-codebuild-ecr" value="Pushes image" style="rounded=1;fontSize=10;fontColor=#6B7A99;strokeColor=#1B65A6;strokeWidth=1;dashed=1;" edge="1" source="infra-codebuild" target="infra-ecr" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- CodeBuild reads from S3 -->
+        <mxCell id="arrow-codebuild-s3" value="Reads source" style="rounded=1;fontSize=10;fontColor=#6B7A99;strokeColor=#1B65A6;strokeWidth=1;dashed=1;" edge="1" source="infra-codebuild" target="infra-s3" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- LEGEND                                                         -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <mxCell id="legend-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FAFBFE;strokeColor=#D1D5DB;strokeWidth=1;arcSize=4;" vertex="1" parent="1">
+          <mxGeometry x="20" y="380" width="200" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-title" value="&lt;b&gt;Legend&lt;/b&gt;" style="text;html=1;fontSize=11;fontColor=#0A1628;align=left;" vertex="1" parent="1">
+          <mxGeometry x="30" y="385" width="80" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-1" value="" style="rounded=1;fillColor=#0A1628;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="30" y="410" width="16" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-1t" value="Core System" style="text;html=1;fontSize=10;fontColor=#0A1628;align=left;" vertex="1" parent="1">
+          <mxGeometry x="55" y="408" width="100" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-2" value="" style="rounded=1;fillColor=#FF9900;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="30" y="435" width="16" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-2t" value="AWS AI Service" style="text;html=1;fontSize=10;fontColor=#0A1628;align=left;" vertex="1" parent="1">
+          <mxGeometry x="55" y="433" width="100" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-3" value="" style="rounded=1;fillColor=#2E7D32;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="30" y="460" width="16" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-3t" value="External Data Source" style="text;html=1;fontSize=10;fontColor=#0A1628;align=left;" vertex="1" parent="1">
+          <mxGeometry x="55" y="458" width="130" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-4" value="" style="rounded=1;fillColor=#1B65A6;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="30" y="485" width="16" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-4t" value="AWS Infrastructure" style="text;html=1;fontSize=10;fontColor=#0A1628;align=left;" vertex="1" parent="1">
+          <mxGeometry x="55" y="483" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-5" value="" style="rounded=1;fillColor=#6B7A99;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="30" y="510" width="16" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-5t" value="Sample / Demo Data" style="text;html=1;fontSize=10;fontColor=#0A1628;align=left;" vertex="1" parent="1">
+          <mxGeometry x="55" y="508" width="130" height="20" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

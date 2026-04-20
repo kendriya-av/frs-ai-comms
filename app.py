@@ -1139,7 +1139,7 @@ def sentiment_page():
 
     df["outlet_label"] = df["outlet"].apply(match_outlet)
 
-    color_map = {"positive": "#2E7D32", "negative": "#C62828", "neutral": "#1B2A4A", "mixed": "#E65100"}
+    color_map = {"positive": "#1565C0", "negative": "#0D47A1", "neutral": "#90CAF9", "mixed": "#42A5F5"}
     total = len(df)
     social_count = int((df["item_type"] == "social").sum())
     news_count = int((df["item_type"] == "news").sum())
@@ -1157,15 +1157,15 @@ def sentiment_page():
     fig_outlet.update_layout(margin=dict(t=10, b=10, l=10, r=10), font=dict(family="Inter", size=11), xaxis_title="", yaxis_title="Count", legend=dict(orientation="h", y=-0.15))
 
     topic_counts = df["topic"].fillna("other").value_counts().rename_axis("topic").reset_index(name="count") if "topic" in df.columns else pd.DataFrame(columns=["topic", "count"])
-    fig_topic = px.pie(topic_counts, names="topic", values="count", template="plotly_white", color_discrete_sequence=px.colors.sequential.Blues_r)
+    fig_topic = px.pie(topic_counts, names="topic", values="count", template="plotly_white", color_discrete_sequence=["#0A1628", "#1565C0", "#1976D2", "#1E88E5", "#2196F3", "#42A5F5", "#64B5F6", "#90CAF9", "#BBDEFB", "#E3F2FD"])
     fig_topic.update_layout(margin=dict(t=10, b=10, l=10, r=10), font=dict(family="Inter"), legend=dict(font=dict(size=10)))
 
     outlet_vol = df["outlet_label"].value_counts().rename_axis("outlet").reset_index(name="count")
-    fig_vol = px.bar(outlet_vol.head(12), x="count", y="outlet", orientation="h", template="plotly_white", color_discrete_sequence=[COLORS["navy"]])
+    fig_vol = px.bar(outlet_vol.head(12), x="count", y="outlet", orientation="h", template="plotly_white", color_discrete_sequence=["#1565C0"])
     fig_vol.update_layout(margin=dict(t=10, b=10, l=10, r=10), font=dict(family="Inter", size=11), yaxis=dict(autorange="reversed"), xaxis_title="Items", yaxis_title="")
 
     type_counts = df["item_type"].value_counts().rename_axis("type").reset_index(name="count")
-    fig_type = px.pie(type_counts, names="type", values="count", template="plotly_white", color_discrete_map={"social": COLORS["gold"], "news": COLORS["navy"]})
+    fig_type = px.pie(type_counts, names="type", values="count", template="plotly_white", color_discrete_map={"social": "#42A5F5", "news": "#0A1628"})
     fig_type.update_layout(margin=dict(t=10, b=10, l=10, r=10), font=dict(family="Inter", size=11))
 
     highlighted = ["LinkedIn", "Wall Street Journal", "CNBC", "Bloomberg", "Axios"]
@@ -1293,8 +1293,8 @@ def sentiment_page():
     Input("url", "pathname"),
 )
 def update_sentiment_trend(period, pathname):
-    color_map = {"positive": "#2E7D32", "negative": "#C62828",
-                 "neutral": "#1B2A4A", "mixed": "#E65100"}
+    color_map = {"positive": "#1565C0", "negative": "#0D47A1",
+                 "neutral": "#90CAF9", "mixed": "#42A5F5"}
 
     social_df = sample_data.get("social_media", pd.DataFrame())
     news_df   = sample_data.get("news_articles", pd.DataFrame())
@@ -1358,8 +1358,8 @@ def hub_page():
     df_inq = sample_data.get("inquiries", pd.DataFrame())
     df_soc = sample_data.get("social_media", pd.DataFrame())
 
-    color_map = {"positive": "#2E7D32", "negative": "#C62828",
-                 "neutral": "#1B2A4A", "mixed": "#E65100"}
+    color_map = {"positive": "#1565C0", "negative": "#0D47A1",
+                 "neutral": "#90CAF9", "mixed": "#42A5F5"}
 
     # ── Trending Topics (moved to left, more than 6) ──────────────────────
     topic_fig = go.Figure()
@@ -2757,29 +2757,74 @@ def faq_page():
         page_header("FAQ & Help",
                     "How each page works, what the sections represent, and how values are calculated"),
 
+        # ── Known Issues & Access ─────────────────────────────────────────
+        _faq_section("🚨", "Known Issues & Access", [
+            ("The App Runner URL (https://apiee6mftn.us-east-1.awsapprunner.com/) does not work from Fed laptops. Why?",
+             "Fed laptops enforce network security policies (firewall, proxy, TLS inspection) that block direct access "
+             "to AWS App Runner public endpoints. The *.awsapprunner.com domain is not on the Fed's allowlist. "
+             "To access the application from a Fed laptop, the deployment must go through an approved Fed network path — "
+             "either via a VPN-connected private endpoint, an internal load balancer, or by requesting the URL be added "
+             "to the Fed's web proxy allowlist. Contact your network security team to request access."),
+            ("What is the recommended deployment path for Fed access?",
+             "Option 1: Deploy behind an internal ALB with a Fed-approved domain (e.g., *.frbsf.org). "
+             "Option 2: Use AWS PrivateLink to expose App Runner via a VPC endpoint accessible from the Fed network. "
+             "Option 3: Request *.awsapprunner.com be added to the Fed proxy allowlist (least likely to be approved)."),
+        ]),
+
+        # ── Recent Changes (April 2026) ──────────────────────────────────
+        _faq_section("🆕", "Recent Changes (April 2026)", [
+            ("What was removed?",
+             "Reddit Sentiment has been removed from Live Fed Data as Reddit data collection is not permitted by the Fed. "
+             "The Inquiry Viewer and AI Draft Response sections were removed from the Communications Hub page "
+             "(they remain available on the dedicated Inquiry & Response page)."),
+            ("What was added or improved?",
+             "• AI Draft Response now supports template selection — you can choose which template to use before generating a draft.\n"
+             "• Sentiment Trend Over Time — see sentiment trending daily, weekly, monthly, quarterly, and annually per outlet.\n"
+             "• Word Cloud renamed from 'Trending Topics' to 'Fed in News' with date filter and improved keyword filtering.\n"
+             "• Insights Report and Sentiment Analysis now properly update social posts after data upload.\n"
+             "• Communications Hub reorganized: Trending Topics moved left, Sentiment Analysis moved under Risk Alerts as donut chart.\n"
+             "• Trust & Safety: added guardrail stating 'Model ensures no policy predictions made and no financial advice is provided'.\n"
+             "• Generate Test Data and Scoring & AI Info pages are now greyed out in navigation (developer-only features).\n"
+             "• ROI Calculator defaults updated to pragmatic real-world values.\n"
+             "• Chart colors made uniform across all bar and pie charts."),
+            ("What is still being worked on?",
+             "• Classified/Unclassified button fix in Inquiry Queue.\n"
+             "• Responsible AI posture confidence metrics responsiveness.\n"
+             "• Trending Topics allowing more than 6 lines.\n"
+             "• Sentiment by Outlet time-period trending (Feb→Mar→Apr progression)."),
+        ]),
+
         # ── Overview ──────────────────────────────────────────────────────
         _faq_section("🏠", "Overview", [
             ("What does the Overview page show?",
              "It provides a high-level summary of the system: the problem statement (manual communications bottleneck), "
              "the AI-powered solution, feature cards linking to each module, the AWS architecture diagram, "
-             "and Responsible AI notices."),
+             "AI pipeline flow visualization, and Responsible AI notices."),
             ("What AWS services power this system?",
-             "Amazon Comprehend (NLP — sentiment, classification, key phrases), Amazon Bedrock with Claude (LLM — drafting, "
-             "reports, risk detection), and AWS IAM/SSO for authentication. The app runs on AWS App Runner with ECR for containers."),
+             "Amazon Comprehend (NLP — sentiment, classification, key phrases, entities), Amazon Bedrock with Claude "
+             "(LLM — drafting, reports, risk detection, synthetic data generation — 7 model options including Sonnet v2, "
+             "Haiku, Opus), and AWS IAM/SSO for authentication. The app runs on AWS App Runner with ECR for containers."),
+            ("How many pages does the application have?",
+             "15 pages: Overview, Communications Hub, Inquiry & Response, Sentiment Monitor, Insights Report, "
+             "Risk Detector, ROI Calculator, Live Fed Data, Upload Data, Audit Log, Trust & Safety, AI Model Config, "
+             "Generate Test Data, Scoring & AI Info, and FAQ & Help."),
         ]),
 
         # ── Communications Hub ────────────────────────────────────────────
         _faq_section("💬", "Communications Hub", [
             ("What does the Communications Hub show?",
-             "A single-screen dashboard with three sections: Trending Topics (left), Risk & Negative Sentiment Alerts "
-             "with a Sentiment Donut chart (right), and summary metric cards (Inquiries, Social Posts, News Items, Sources)."),
+             "A single-screen dashboard with: Trending Topics (shifted to the left, allows more than 6 lines), "
+             "Risk & Negative Sentiment Alerts with a Sentiment Analysis donut chart (moved under Risk Alerts), "
+             "and summary metric cards (Inquiries, Social Posts, News Items, Sources). "
+             "Note: The Inquiry Viewer and AI Draft Response sections have been removed from this page — "
+             "use the dedicated Inquiry & Response page instead."),
             ("How are Trending Topics calculated?",
-             "Topics are extracted from the 'topic' field of social media posts. The top 12 topics by volume are displayed "
-             "as a horizontal bar chart, ranked by post count."),
+             "Topics are extracted from the 'topic' field of social media posts. The top topics by volume are displayed "
+             "as a horizontal bar chart, ranked by post count. The section now supports more than 6 lines for better visibility."),
             ("How does the Sentiment Donut work?",
              "It aggregates the 'sentiment' field across all social media posts into positive/negative/neutral/mixed categories "
-             "and displays them as a donut (pie with hole) chart. Colors: green=#2E7D32 (positive), red=#C62828 (negative), "
-             "navy=#1B2A4A (neutral), orange=#E65100 (mixed)."),
+             "and displays them as a donut (pie with hole) chart. This chart has been moved under the Risk & Negative Sentiment "
+             "Alerts section. Colors are now uniform across all charts in the application."),
             ("How are Risk Alerts generated?",
              "The system filters social media posts with sentiment='negative', groups them by topic, and shows the top 3 "
              "topics with the highest count of negative posts."),
@@ -2794,12 +2839,18 @@ def faq_page():
              "Amazon Comprehend analyzes the inquiry text to determine category (monetary_policy, interest_rates, etc.), "
              "sentiment (positive/negative/neutral/mixed), and confidence score (0–100%). A keyword-based fallback classifier "
              "is used when Comprehend is unavailable."),
-            ("What does the Recategorize button do?",
+            ("What does the Classify All button do?",
              "It re-runs Amazon Comprehend classification on every inquiry in the dataset, updating ai_category, "
              "ai_confidence, and ai_sentiment fields. The inquiry list refreshes automatically after completion."),
             ("How are draft responses generated?",
              "Amazon Bedrock (Claude) generates a response using the inquiry's category, source/audience, subject, and body. "
-             "A category-specific template guides the tone and structure. 29 templates cover all category × audience combinations."),
+             "You can now select which template to use before generating — choose from 30+ approved templates covering "
+             "all category × audience combinations (public, media, stakeholder). The template guides tone, structure, "
+             "and placeholder usage."),
+            ("How does template selection work?",
+             "When viewing an inquiry detail, select a category and audience (public/media/stakeholder) to preview the "
+             "matching template. The template shows the subject line, body structure, tone guidance, and placeholders. "
+             "Click Generate Draft to have Bedrock fill in the template with inquiry-specific content."),
             ("What is the Smart Inbox?",
              "An auto-clustering feature that groups inquiries by (source, category) pairs and shows the top 6 clusters "
              "with their counts, giving a quick overview of inquiry distribution."),
@@ -2809,18 +2860,22 @@ def faq_page():
         _faq_section("📊", "Sentiment Monitor", [
             ("What data feeds into Sentiment Monitor?",
              "Social media posts and news articles are merged into one consolidated view. Sources include LinkedIn, "
-             "Wall Street Journal, CNBC, Bloomberg, Axios, Federal Reserve RSS, NY Times, Reuters, Washington Post, and more."),
+             "Wall Street Journal, CNBC, Bloomberg, Axios, Federal Reserve RSS, NY Times, Reuters, Washington Post, "
+             "MarketWatch, NPR, AP News, Yahoo Finance, and more (13+ outlets total). "
+             "Note: Reddit sentiment has been removed as it is not permitted by the Fed."),
             ("How is sentiment assigned?",
              "Items with a pre-existing sentiment field (from Comprehend or data generation) keep their value. Items without "
              "sentiment get a keyword-based assignment: words like 'surge', 'rally', 'growth' → positive; 'crash', 'crisis', "
              "'fear' → negative; otherwise → neutral."),
             ("What does 'Sentiment by Outlet' show?",
              "A stacked bar chart showing positive/negative/neutral/mixed counts per news outlet or social platform, "
-             "so you can see which outlets skew positive or negative."),
+             "so you can see which outlets skew positive or negative. Chart colors are now uniform across all visualizations."),
             ("How does the Sentiment Trend Over Time chart work?",
              "It groups all social media and news items by their date field, resampled at the selected period "
              "(Daily/Weekly/Monthly/Quarterly/Annually). Each sentiment category is plotted as a separate line, "
-             "showing how sentiment volume changes over time. This helps the Comms team spot rising negative sentiment early."),
+             "showing how sentiment volume changes over time. For example, you can see that negative sentiment was 10 in "
+             "February, 25 in March, and 35 in April. This helps the Comms team spot rising negative sentiment early "
+             "and track trends across any time horizon."),
             ("What is the Topic Distribution chart?",
              "A pie chart showing the proportion of posts/articles per topic across all data."),
         ]),
@@ -2830,18 +2885,22 @@ def faq_page():
             ("What does the Insights Report generate?",
              "An AI-generated executive report using Amazon Bedrock (Claude). It summarizes all loaded data — inquiries, "
              "social media, and news — into a narrative with per-category breakdown, risk areas, sentiment trends, "
-             "and recommended actions."),
+             "and recommended actions. Social posts now properly update after data upload."),
             ("How does the date filter work?",
              "The Date From and Date To pickers filter inquiries, social media, and news articles by their date/timestamp "
              "field before generating the report. Only records within the selected range are included in the analysis."),
             ("What is 'Fed in News' (Word Cloud)?",
-             "A word cloud generated from all text across inquiries (subject + body), social media (text), and news "
-             "(headline + summary). Common stopwords and Fed-specific terms (Fed, Federal, Reserve, Bank, etc.) are filtered "
-             "out so the cloud highlights meaningful trending keywords."),
+             "Formerly called 'Trending Topics', now renamed to 'Fed in News'. A word cloud generated from all text across "
+             "inquiries (subject + body), social media (text), and news (headline + summary). Common stopwords and "
+             "Fed-specific terms (Fed, Federal, Reserve, Bank, etc.) are filtered out so the cloud highlights meaningful "
+             "trending keywords — not generic words like 'Fed'. A date filter has been added to scope the word cloud "
+             "to a specific time period."),
             ("How are Trending Topics tinted by sentiment?",
              "For each topic, the system calculates net sentiment = (positive count − negative count) / total count. "
              "Topics with net > 0.2 are green (positive trend), < −0.2 are red (negative trend), otherwise navy (neutral). "
              "An arrow indicator (↑/↓/→) and percentage are shown on each bar."),
+            ("What export formats are available?",
+             "The generated report can be downloaded as Markdown (.md), HTML (.html), DOCX (.docx), or PDF (.pdf)."),
         ]),
 
         # ── Risk Detector ─────────────────────────────────────────────────
@@ -2874,11 +2933,17 @@ def faq_page():
         _faq_section("🌐", "Live Fed Data", [
             ("What data sources are used?",
              "Free RSS feeds only — no API keys required. Sources include: Federal Reserve FOMC statements, press releases, "
-             "speeches, and news feeds from Reuters, Bloomberg, CNBC, NY Times, Washington Post, NPR, AP News, and others."),
+             "speeches, FRBSF research, and news feeds from CNBC, Reuters, Bloomberg, NY Times, Washington Post, MarketWatch, "
+             "NPR, AP News, Yahoo Finance, and Axios (13+ outlets total). "
+             "Note: Reddit has been removed as it is not permitted by the Fed."),
             ("How does Fetch Now work?",
              "Clicking Fetch Now pulls the latest items from the selected RSS feed, runs them through the sentiment pipeline "
              "(keyword-based classification + optional Comprehend), and merges them into the app's data. "
-             "Total items, news articles, and sentiment counts update automatically."),
+             "Total items, news articles, and sentiment counts update automatically. "
+             "Social posts may not update if the fetched data doesn't contain social media content — this is expected behavior."),
+            ("Why was Reddit removed?",
+             "Reddit data collection is not permitted by the Federal Reserve. The Reddit Sentiment section has been fully "
+             "removed from Live Fed Data as of April 2026."),
         ]),
 
         # ── Upload Data ───────────────────────────────────────────────────
@@ -2910,8 +2975,9 @@ def faq_page():
              "Medium (70–90%), or Low (<70%). The distribution updates dynamically every 10 seconds via a callback, "
              "reflecting any new data uploads or classifications."),
             ("What guardrails are active?",
-             "9 guardrails: human-in-the-loop (no auto-send), closed label set, prompt templating, template-guided output, "
-             "confidence thresholds, audit trail, bias disclosure, no PII processing, and no policy predictions/financial advice."),
+             "10 guardrails: human-in-the-loop (no auto-send), closed label set, prompt templating, template-guided output, "
+             "confidence thresholds, audit trail, bias disclosure, no PII processing, no policy predictions/financial advice, "
+             "and model ensures no policy predictions made and no financial advice is provided."),
         ]),
 
         # ── AI Model Config ───────────────────────────────────────────────
@@ -2920,8 +2986,44 @@ def faq_page():
              "Select a model from the dropdown on the AI Model Config page and click Save. The selected model is stored "
              "in browser session storage and used for all subsequent Bedrock calls (drafting, insights, risk detection, data generation)."),
             ("What models are available?",
-             "Multiple Claude models via Amazon Bedrock: Claude 3.5 Sonnet, Claude 3 Sonnet, Claude 3 Haiku, and Claude Instant. "
+             "7 Claude models via Amazon Bedrock: Claude 3.5 Sonnet v2 (Latest), Claude 3.5 Haiku (Fast), Claude 3 Sonnet, "
+             "Claude 3 Haiku (Fastest), Claude 3 Opus (Most Capable), and US cross-region variants of Sonnet v2 and Haiku. "
              "If no model is selected, the system falls back to the BEDROCK_MODEL_ID environment variable."),
+        ]),
+
+        # ── Generate Test Data ────────────────────────────────────────────
+        _faq_section("🧪", "Generate Test Data (Developer Feature)", [
+            ("What does this page do?",
+             "Generates synthetic test data using Amazon Bedrock (Claude). You can generate inquiries, social media posts, "
+             "news articles, or response templates with configurable count, batch size, date range, and topic selection."),
+            ("Why is this page greyed out in navigation?",
+             "Generate Test Data and Scoring & AI Info are developer/testing features, not end-user features. They are "
+             "visually de-emphasized in the sidebar to indicate they are for internal testing purposes only."),
+            ("Where is generated data stored?",
+             "Generated data is saved as JSON files in the data/ folder with timestamped filenames "
+             "(e.g., inquiries_20260414_115326.json). These files are automatically loaded on app startup."),
+        ]),
+
+        # ── Scoring & AI Info ─────────────────────────────────────────────
+        _faq_section("🏆", "Scoring & AI Info (Developer Feature)", [
+            ("What does this page show?",
+             "Classification methodology details, category scoring rubrics, and AI model information. "
+             "This is a developer reference page showing how the system categorizes and scores inquiries."),
+        ]),
+
+        # ── Deployment & Architecture ─────────────────────────────────────
+        _faq_section("🏗️", "Deployment & Architecture", [
+            ("How is the app deployed?",
+             "Source code → GitHub → AWS CodeBuild (builds Docker image) → Amazon ECR (stores image) → "
+             "AWS App Runner (runs container). The deployment is automated via buildspec.yml."),
+            ("What is the tech stack?",
+             "Python 3.11, Dash/Plotly (web framework), Amazon Bedrock (Claude LLM), Amazon Comprehend (NLP), "
+             "boto3 (AWS SDK), pandas (data processing), wordcloud + matplotlib (visualizations), "
+             "Docker (containerization), AWS App Runner (hosting)."),
+            ("What are the system diagrams available?",
+             "Three architecture diagrams are maintained: C1 System Context Diagram (high-level actors and external systems), "
+             "C4 Container Diagram (internal containers and their relationships), and Component Diagram (detailed view of "
+             "all 15 pages, callback handlers, and service modules). Available as PNG, PDF, draw.io, and Mermaid markdown."),
         ]),
     ])
 
@@ -3013,6 +3115,15 @@ def save_model(n, selected_model):
     Input("uploaded-data", "data"),
 )
 def render_page(pathname, _refresh_sig, _uploaded):
+    from dash import ctx
+    triggered = ctx.triggered_id if ctx.triggered_id else "url"
+
+    # Only re-render on data changes for pages that display data summaries.
+    # Skip re-render for pages where user is actively working (upload, generate, feddata, settings).
+    no_rerender_pages = {"/upload", "/generate", "/feddata", "/settings", "/roi", "/faq", "/scoring"}
+    if triggered != "url" and pathname in no_rerender_pages:
+        return dash.no_update
+
     routes = {
         "/":          overview_page,
         "/hub":       hub_page,
@@ -3848,10 +3959,44 @@ def gen_insights(n, model_store, date_from, date_to):
             all_text_parts += news_df["summary"].dropna().tolist()
 
     combined_text = " ".join(all_text_parts)
-    # Remove common non-informative words
-    stopwords = {"the", "and", "for", "that", "this", "with", "from", "are", "was", "were", "been", "have", "has", "had", "will", "would", "could", "should", "may", "can", "fed", "federal", "reserve", "bank", "san", "francisco", "frbsf", "also", "about", "their", "they", "them", "than", "into", "over", "such", "its", "our", "not", "but", "all", "more", "most", "other", "some", "what", "which", "who", "how", "when", "where", "there", "here", "each", "every", "both", "few", "many", "much", "very", "just", "only", "own", "same", "than", "too", "any", "new", "one", "two"}
-    for sw in stopwords:
-        combined_text = combined_text.replace(f" {sw} ", " ")
+    # Remove non-informative words (common English + domain noise + HTML/URL artifacts)
+    stopwords = {
+        # English stopwords
+        "the", "and", "for", "that", "this", "with", "from", "are", "was", "were",
+        "been", "have", "has", "had", "will", "would", "could", "should", "may", "can",
+        "also", "about", "their", "they", "them", "than", "into", "over", "such", "its",
+        "our", "not", "but", "all", "more", "most", "other", "some", "what", "which",
+        "who", "how", "when", "where", "there", "here", "each", "every", "both", "few",
+        "many", "much", "very", "just", "only", "own", "same", "too", "any", "new",
+        "one", "two", "being", "does", "did", "doing", "these", "those", "then", "once",
+        "after", "before", "above", "below", "between", "under", "again", "further",
+        "while", "during", "through", "against", "until", "because", "although",
+        "however", "therefore", "whether", "since", "without", "within", "along",
+        "upon", "toward", "among", "across", "around", "still", "yet", "already",
+        # Domain noise — always present in Fed context, not insightful
+        "fed", "federal", "reserve", "bank", "san", "francisco", "frbsf", "board",
+        "fomc", "committee", "open", "market", "statement", "press", "release",
+        "meeting", "minutes", "governor", "chair", "vice",
+        # HTML / URL / formatting artifacts
+        "http", "https", "www", "com", "org", "gov", "html", "xml", "rss",
+        "href", "font", "color", "nbsp", "amp", "quot", "style", "class", "div",
+        "span", "src", "alt", "img", "width", "height", "border", "padding",
+        "margin", "display", "none", "block", "inline", "text", "align", "size",
+        "6f6f6f", "blank", "target",
+        # Generic filler
+        "news", "data", "articles", "google", "latest", "current", "recent",
+        "today", "year", "month", "week", "day", "time", "said", "says",
+        "according", "report", "reports", "reported", "update", "updated",
+        "please", "provide", "request", "regarding", "information", "thank",
+        "thanks", "dear", "sincerely", "regards", "appreciate", "understanding",
+        "keep", "working", "region", "representative", "potential", "impact",
+        "measures", "high", "low", "get", "make", "like", "know", "see",
+        "use", "way", "well", "back", "even", "take", "come", "look",
+    }
+    import re
+    words = re.findall(r'[a-zA-Z]{3,}', combined_text.lower())
+    filtered_words = [w for w in words if w not in stopwords]
+    combined_text = " ".join(filtered_words)
     wc_b64 = generate_wordcloud_base64(combined_text) if combined_text else ""
 
     # ── Trending topics tinted by net sentiment ─────────────────────────
@@ -3886,15 +4031,15 @@ def gen_insights(n, model_store, date_from, date_to):
         tdf["net_sentiment"] = tdf["topic"].map(net_sent)
         tdf["label"] = tdf["topic"].apply(lambda x: x.replace("_", " ").title())
 
-        # Color: green for positive net, red for negative, navy for neutral
+        # Color: blue variations for sentiment tint
         colors = []
         for ns in tdf["net_sentiment"]:
             if ns > 0.2:
-                colors.append("#2E7D32")   # positive green
+                colors.append("#1565C0")   # positive — medium blue
             elif ns < -0.2:
-                colors.append("#C62828")   # negative red
+                colors.append("#0D47A1")   # negative — dark blue
             else:
-                colors.append(COLORS["navy"])  # neutral
+                colors.append("#90CAF9")   # neutral — light blue
 
         trending_fig = go.Figure(go.Bar(
             x=tdf["count"].tolist(),
@@ -3990,14 +4135,32 @@ def gen_insights(n, model_store, date_from, date_to):
             ]),
         ], style={"marginBottom": "20px"}),
 
-        # Word cloud + trending topics
+        # Word cloud + trending topics (same size tiles)
         dbc.Row([
             dbc.Col(wc_section, width=6),
             dbc.Col(card([
                 html.P("Trending Topics · tinted by net sentiment",
                        style={"fontWeight": "600", "color": COLORS["navy"], "marginBottom": "4px"}),
                 dcc.Graph(figure=trending_fig, config={"displayModeBar": False}),
-            ]), width=6),
+                html.Div([
+                    html.P("How to read this chart:", style={"fontWeight": "600", "fontSize": "11px",
+                                                              "color": COLORS["navy"], "marginBottom": "4px"}),
+                    html.P("Each bar shows a topic's total mention count across all data. "
+                           "The color indicates net sentiment: ",
+                           style={"fontSize": "10px", "color": COLORS["muted"], "marginBottom": "2px", "display": "inline"}),
+                    html.Span("■ Medium blue", style={"color": "#1565C0", "fontSize": "10px", "fontWeight": "600"}),
+                    html.Span(" = mostly positive (net > +20%)  ·  ", style={"fontSize": "10px", "color": COLORS["muted"]}),
+                    html.Span("■ Dark blue", style={"color": "#0D47A1", "fontSize": "10px", "fontWeight": "600"}),
+                    html.Span(" = mostly negative (net < −20%)  ·  ", style={"fontSize": "10px", "color": COLORS["muted"]}),
+                    html.Span("■ Light blue", style={"color": "#90CAF9", "fontSize": "10px", "fontWeight": "600"}),
+                    html.Span(" = neutral/balanced", style={"fontSize": "10px", "color": COLORS["muted"]}),
+                    html.P("Net sentiment = (positive − negative) ÷ total mentions. "
+                           "Arrow indicators: ↑ positive trend, ↓ negative trend, → balanced.",
+                           style={"fontSize": "10px", "color": COLORS["muted"], "marginTop": "4px"}),
+                ], style={"padding": "8px 10px", "backgroundColor": "#F0F4FF",
+                          "borderRadius": "4px", "marginTop": "8px",
+                          "border": "1px solid #D6E4FF"}),
+            ], style={"marginBottom": "20px"}), width=6),
         ], className="mb-4"),
 
         # Report

@@ -1,0 +1,3 @@
+1. Insights tab - wordcloud still not updated, we can see terms like http, and most top words are Fed, Federal Reserve and FRB. 
+2. Insights tab - The trending topics tinted by sentiment is hard to interpret, please explain how it is meant to be read.
+3. Sentiment Monitor tab - the chart colors are different across the different images,  we should have consistency in the colors, preferably blue and its variations as it works better with color scheme.

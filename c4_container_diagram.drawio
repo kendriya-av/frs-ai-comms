@@ -1,0 +1,148 @@
+<mxfile host="app.diagrams.net" modified="2026-04-19" type="device">
+  <diagram id="c4-container" name="C4 - Container Diagram">
+    <mxGraphModel dx="2200" dy="1600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2000" pageHeight="1500" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Title -->
+        <mxCell id="title" value="&lt;b&gt;C4 — Container Diagram&lt;/b&gt;&lt;br&gt;FRBSF AI Communications Intelligence System" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=16;fontColor=#0A1628;" vertex="1" parent="1">
+          <mxGeometry x="650" y="10" width="500" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Persons -->
+        <mxCell id="p1" value="&lt;b&gt;Communications Officer&lt;/b&gt;&lt;br&gt;&lt;i&gt;Reviews drafts, selects templates,&lt;br&gt;monitors sentiment, tracks ROI&lt;/i&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;fillColor=#0A1628;strokeColor=#0A1628;fontColor=#0A1628;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="300" y="70" width="30" height="55" as="geometry"/>
+        </mxCell>
+        <mxCell id="p2" value="&lt;b&gt;Leadership / Executives&lt;/b&gt;&lt;br&gt;&lt;i&gt;Views insights reports &amp; exports&lt;/i&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;fillColor=#0A1628;strokeColor=#0A1628;fontColor=#0A1628;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="850" y="70" width="30" height="55" as="geometry"/>
+        </mxCell>
+        <mxCell id="p3" value="&lt;b&gt;Public / Media / Stakeholders&lt;/b&gt;&lt;br&gt;&lt;i&gt;Sends inquiries&lt;/i&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;fillColor=#1B65A6;strokeColor=#1B65A6;fontColor=#1B65A6;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="1400" y="70" width="30" height="55" as="geometry"/>
+        </mxCell>
+
+        <!-- System Boundary -->
+        <mxCell id="boundary" value="FRBSF AI Communications System" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EEF2FF;strokeColor=#0A1628;dashed=1;fontSize=12;fontColor=#0A1628;fontStyle=1;verticalAlign=top;align=left;spacingLeft=10;spacingTop=5;opacity=30;" vertex="1" parent="1">
+          <mxGeometry x="80" y="240" width="1640" height="560" as="geometry"/>
+        </mxCell>
+
+        <!-- Row 1: Dash App -->
+        <mxCell id="dash" value="&lt;b&gt;Dash Web Application&lt;/b&gt;&lt;br&gt;&lt;i&gt;Python, Dash/Plotly&lt;/i&gt;&lt;br&gt;15-page SPA: Overview, Hub, Inquiries, Sentiment,&lt;br&gt;Insights, Risks, ROI, Fed Data, Upload, Audit,&lt;br&gt;Trust, Settings, Generate, Scoring, FAQ" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0A1628;fontColor=#FFFFFF;strokeColor=#0A1628;fontSize=9;arcSize=6;" vertex="1" parent="1">
+          <mxGeometry x="500" y="270" width="800" height="90" as="geometry"/>
+        </mxCell>
+
+        <!-- Row 2: Core Services -->
+        <mxCell id="pipeline" value="&lt;b&gt;Processing Pipeline&lt;/b&gt;&lt;br&gt;&lt;i&gt;pipeline.py&lt;/i&gt;&lt;br&gt;Orchestrates full flow" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#00695C;fontColor=#FFFFFF;strokeColor=#00695C;fontSize=9;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="100" y="410" width="220" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="dataloader" value="&lt;b&gt;Data Loader&lt;/b&gt;&lt;br&gt;&lt;i&gt;data_loader.py&lt;/i&gt;&lt;br&gt;Merges all data sources" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#00695C;fontColor=#FFFFFF;strokeColor=#00695C;fontSize=9;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="370" y="410" width="220" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="templates" value="&lt;b&gt;Response Templates&lt;/b&gt;&lt;br&gt;&lt;i&gt;response_templates.py&lt;/i&gt;&lt;br&gt;30+ templates (category, audience)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#00695C;fontColor=#FFFFFF;strokeColor=#00695C;fontSize=9;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="640" y="410" width="240" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="datagen" value="&lt;b&gt;Data Gen Service&lt;/b&gt;&lt;br&gt;&lt;i&gt;datagen_service.py&lt;/i&gt;&lt;br&gt;Synthetic data via Bedrock" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#00695C;fontColor=#FFFFFF;strokeColor=#00695C;fontSize=9;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="930" y="410" width="220" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="wordcloud" value="&lt;b&gt;Word Cloud Utility&lt;/b&gt;&lt;br&gt;&lt;i&gt;wordcloud_util.py&lt;/i&gt;&lt;br&gt;PNG as base64" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#5E35B1;fontColor=#FFFFFF;strokeColor=#5E35B1;fontSize=9;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="1200" y="410" width="200" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- Row 3: AI Gateways + Data Fetcher -->
+        <mxCell id="bedrocksvc" value="&lt;b&gt;Bedrock Service&lt;/b&gt;&lt;br&gt;&lt;i&gt;bedrock_service.py&lt;/i&gt;&lt;br&gt;LLM gateway (boto3)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E65100;fontColor=#FFFFFF;strokeColor=#E65100;fontSize=9;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="100" y="530" width="250" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="comprehendsvc" value="&lt;b&gt;Comprehend Service&lt;/b&gt;&lt;br&gt;&lt;i&gt;comprehend_service.py&lt;/i&gt;&lt;br&gt;NLP gateway (boto3)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E65100;fontColor=#FFFFFF;strokeColor=#E65100;fontSize=9;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="400" y="530" width="250" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="pubdata" value="&lt;b&gt;Public Data Service&lt;/b&gt;&lt;br&gt;&lt;i&gt;public_data_service.py&lt;/i&gt;&lt;br&gt;RSS fetcher (13+ outlets)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2E7D32;fontColor=#FFFFFF;strokeColor=#2E7D32;fontSize=9;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="700" y="530" width="250" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- Row 4: Storage -->
+        <mxCell id="auditlog" value="&lt;b&gt;Audit Log&lt;/b&gt;&lt;br&gt;&lt;i&gt;audit_log.py&lt;/i&gt;&lt;br&gt;Tracks all AI actions" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#6B7A99;fontColor=#FFFFFF;strokeColor=#6B7A99;fontSize=9;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="300" y="650" width="220" height="65" as="geometry"/>
+        </mxCell>
+        <mxCell id="localdata" value="&lt;b&gt;Local Data Store&lt;/b&gt;&lt;br&gt;&lt;i&gt;data/ folder — JSON files&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#6B7A99;fontColor=#FFFFFF;strokeColor=#6B7A99;fontSize=9;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="600" y="650" width="220" height="65" as="geometry"/>
+        </mxCell>
+        <mxCell id="config" value="&lt;b&gt;Config&lt;/b&gt;&lt;br&gt;&lt;i&gt;config.py — AWS region, model, env&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#6B7A99;fontColor=#FFFFFF;strokeColor=#6B7A99;fontSize=9;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="900" y="650" width="220" height="65" as="geometry"/>
+        </mxCell>
+
+        <!-- External Systems -->
+        <mxCell id="ext_comprehend" value="&lt;b&gt;Amazon Comprehend&lt;/b&gt;&lt;br&gt;&lt;i&gt;Sentiment · Classification · Key Phrases · Entities&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E65100;fontColor=#FFFFFF;strokeColor=#E65100;fontSize=9;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="30" y="880" width="300" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="ext_bedrock" value="&lt;b&gt;Amazon Bedrock (Claude)&lt;/b&gt;&lt;br&gt;&lt;i&gt;Drafting · Reports · Risk · Data Gen · 7 models&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#232F3E;fontColor=#FFFFFF;strokeColor=#232F3E;fontSize=9;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="370" y="880" width="300" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="ext_fedrss" value="&lt;b&gt;Federal Reserve RSS&lt;/b&gt;&lt;br&gt;&lt;i&gt;FOMC, Press, Speeches, Research&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2E7D32;fontColor=#FFFFFF;strokeColor=#2E7D32;fontSize=9;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="710" y="880" width="260" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="ext_newsrss" value="&lt;b&gt;News Outlet RSS&lt;/b&gt;&lt;br&gt;&lt;i&gt;CNBC, NYT, Reuters, Bloomberg, WaPo...&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2E7D32;fontColor=#FFFFFF;strokeColor=#2E7D32;fontSize=9;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="1010" y="880" width="260" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="ext_github" value="&lt;b&gt;GitHub Sample Data&lt;/b&gt;&lt;br&gt;&lt;i&gt;Demo data&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#6B7A99;fontColor=#FFFFFF;strokeColor=#6B7A99;fontSize=9;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="1310" y="880" width="200" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Infrastructure -->
+        <mxCell id="inf_apprunner" value="&lt;b&gt;AWS App Runner&lt;/b&gt;&lt;br&gt;&lt;i&gt;Container hosting&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B65A6;fontColor=#FFFFFF;strokeColor=#1B65A6;fontSize=9;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="200" y="1020" width="200" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="inf_ecr" value="&lt;b&gt;Amazon ECR&lt;/b&gt;&lt;br&gt;&lt;i&gt;Image registry&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B65A6;fontColor=#FFFFFF;strokeColor=#1B65A6;fontSize=9;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="500" y="1020" width="200" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="inf_codebuild" value="&lt;b&gt;AWS CodeBuild&lt;/b&gt;&lt;br&gt;&lt;i&gt;CI/CD pipeline&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B65A6;fontColor=#FFFFFF;strokeColor=#1B65A6;fontSize=9;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="800" y="1020" width="200" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="inf_s3" value="&lt;b&gt;Amazon S3&lt;/b&gt;&lt;br&gt;&lt;i&gt;Source artifacts&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B65A6;fontColor=#FFFFFF;strokeColor=#1B65A6;fontSize=9;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="1020" width="200" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Key Edges: Persons → Dash -->
+        <mxCell id="ep1" style="strokeColor=#0A1628;" edge="1" source="p1" target="dash" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ep2" style="strokeColor=#0A1628;" edge="1" source="p2" target="dash" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ep3" style="strokeColor=#1B65A6;" edge="1" source="p3" target="dash" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- Dash → Row 2 -->
+        <mxCell id="ed1" style="strokeColor=#00695C;" edge="1" source="dash" target="pipeline" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ed2" style="strokeColor=#00695C;" edge="1" source="dash" target="dataloader" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ed3" style="strokeColor=#00695C;" edge="1" source="dash" target="templates" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ed4" style="strokeColor=#00695C;" edge="1" source="dash" target="datagen" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ed5" style="strokeColor=#5E35B1;" edge="1" source="dash" target="wordcloud" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- Dash → Row 3 -->
+        <mxCell id="ed6" style="strokeColor=#E65100;" edge="1" source="dash" target="bedrocksvc" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ed7" style="strokeColor=#E65100;" edge="1" source="dash" target="comprehendsvc" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- Row 3 → External -->
+        <mxCell id="es1" style="strokeColor=#E65100;" edge="1" source="comprehendsvc" target="ext_comprehend" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="es2" style="strokeColor=#232F3E;" edge="1" source="bedrocksvc" target="ext_bedrock" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="es3" style="strokeColor=#2E7D32;" edge="1" source="pubdata" target="ext_fedrss" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="es4" style="strokeColor=#2E7D32;" edge="1" source="pubdata" target="ext_newsrss" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="es5" style="strokeColor=#6B7A99;" edge="1" source="dataloader" target="ext_github" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- Data Loader → Public Data Service -->
+        <mxCell id="es6" style="strokeColor=#2E7D32;dashed=1;" edge="1" source="dataloader" target="pubdata" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- Bedrock Svc → Audit -->
+        <mxCell id="es7" style="strokeColor=#6B7A99;dashed=1;" edge="1" source="bedrocksvc" target="auditlog" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- Data Loader → Local Data -->
+        <mxCell id="es8" style="strokeColor=#6B7A99;dashed=1;" edge="1" source="dataloader" target="localdata" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- DataGen → Bedrock Svc -->
+        <mxCell id="es9" style="strokeColor=#E65100;dashed=1;" edge="1" source="datagen" target="bedrocksvc" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- Infrastructure edges -->
+        <mxCell id="ei1" style="strokeColor=#1B65A6;dashed=1;" edge="1" source="inf_apprunner" target="inf_ecr" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ei2" style="strokeColor=#1B65A6;dashed=1;" edge="1" source="inf_codebuild" target="inf_ecr" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ei3" style="strokeColor=#1B65A6;dashed=1;" edge="1" source="inf_codebuild" target="inf_s3" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ei4" style="strokeColor=#1B65A6;dashed=1;" edge="1" source="inf_apprunner" target="dash" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
