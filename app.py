@@ -675,18 +675,14 @@ def _analyze_and_merge_feeds(items: list, source_type: str) -> tuple:
 
 # ── Callbacks: RSS feeds ──────────────────────────────────────────────────────
 @app.callback(Output("fomc-output", "children"),
-              Output("data-refresh-signal", "data", allow_duplicate=True),
               Input("fomc-fetch-btn", "n_clicks"),
               State("fomc-limit", "value"),
-              State("data-refresh-signal", "data"),
               prevent_initial_call=True)
-def cb_fomc(n, limit, cur_sig):
+def cb_fomc(n, limit):
     items = fetch_fomc_statements(limit or 10)
     count, msg = _analyze_and_merge_feeds(items, "fomc_statement")
-    # Update data_sources
     src_label = f"Fed RSS ({count} items)"
     current_sources = sample_data.get("data_sources", [])
-    # Remove old Fed RSS label and add updated one
     current_sources = [s for s in current_sources if not s.startswith("Fed RSS")]
     if count > 0:
         current_sources.append(src_label)
@@ -694,15 +690,13 @@ def cb_fomc(n, limit, cur_sig):
     return html.Div([
         html.P(f"Fetched {len(items)} FOMC statements", style={"fontSize": "12px", "color": COLORS["muted"]}),
         html.P(msg, style={"fontSize": "11px", "color": COLORS["success"], "marginBottom": "12px"}),
-        _render_feed_items(items)]), (cur_sig or 0) + 1
+        _render_feed_items(items)])
 
 @app.callback(Output("press-output", "children"),
-              Output("data-refresh-signal", "data", allow_duplicate=True),
               Input("press-fetch-btn", "n_clicks"),
               State("press-limit", "value"),
-              State("data-refresh-signal", "data"),
               prevent_initial_call=True)
-def cb_press(n, limit, cur_sig):
+def cb_press(n, limit):
     items = fetch_press_releases(limit or 15)
     count, msg = _analyze_and_merge_feeds(items, "press_release")
     src_label = f"Press Releases ({count} items)"
@@ -714,15 +708,13 @@ def cb_press(n, limit, cur_sig):
     return html.Div([
         html.P(f"Fetched {len(items)} press releases", style={"fontSize": "12px", "color": COLORS["muted"]}),
         html.P(msg, style={"fontSize": "11px", "color": COLORS["success"], "marginBottom": "12px"}),
-        _render_feed_items(items)]), (cur_sig or 0) + 1
+        _render_feed_items(items)])
 
 @app.callback(Output("speech-output", "children"),
-              Output("data-refresh-signal", "data", allow_duplicate=True),
               Input("speech-fetch-btn", "n_clicks"),
               State("speech-limit", "value"),
-              State("data-refresh-signal", "data"),
               prevent_initial_call=True)
-def cb_speech(n, limit, cur_sig):
+def cb_speech(n, limit):
     items = fetch_speeches(limit or 10) + fetch_frbsf_speeches(limit or 10)
     count, msg = _analyze_and_merge_feeds(items, "speech")
     src_label = f"Speeches ({count} items)"
@@ -734,21 +726,19 @@ def cb_speech(n, limit, cur_sig):
     return html.Div([
         html.P(f"Fetched {len(items)} speeches", style={"fontSize": "12px", "color": COLORS["muted"]}),
         html.P(msg, style={"fontSize": "11px", "color": COLORS["success"], "marginBottom": "12px"}),
-        _render_feed_items(items)]), (cur_sig or 0) + 1
+        _render_feed_items(items)])
 
 @app.callback(Output("news-output", "children"),
-              Output("data-refresh-signal", "data", allow_duplicate=True),
               Input("news-fetch-btn", "n_clicks"),
               State("news-feeds-select", "value"),
               State("news-limit", "value"),
-              State("data-refresh-signal", "data"),
               prevent_initial_call=True)
-def cb_news(n, selected_feeds, limit, cur_sig):
+def cb_news(n, selected_feeds, limit):
     feeds = {k: v for k, v in NEWS_FEEDS.items() if k in (selected_feeds or [])}
     articles = fetch_news_feeds(limit_per_feed=limit or 6, feeds=feeds)
     valid = [a for a in articles if "error" not in a]
     if not valid:
-        return html.P("No articles found.", style={"color": COLORS["muted"]}), dash.no_update
+        return html.P("No articles found.", style={"color": COLORS["muted"]})
 
     # Analyze sentiment and merge
     for a in valid:
@@ -806,7 +796,7 @@ def cb_news(n, selected_feeds, limit, cur_sig):
                       "borderLeft": f"4px solid {COLORS['navy']}"})
             for a in valid
         ]),
-    ]), (cur_sig or 0) + 1
+    ])
 
 
 # ── Page: Upload ──────────────────────────────────────────────────────────────
@@ -2083,12 +2073,16 @@ def calc_roi(n, inquiries, classify_min, draft_min, report_hrs, hourly,
             dash_table.DataTable(
                 data=[
                     {"Component": "Inquiry Classification", "Manual (hrs/mo)": f"{classify_hrs_mo:.1f}",
-                     "AI (hrs/mo)": f"{inquiries * ai_classify_sec / 3600:.1f}",
+                     "AI (hrs/mo)": f"{inquiries * ai_classify_sec / 3600:.2f}",
                      "Manual Cost/mo": f"${classify_hrs_mo * hourly:,.0f}",
-                     "AI Cost/mo": f"${ai_review_hrs * hourly * 0.3:,.2f}"},
-                    {"Component": "Response Drafting", "Manual (hrs/mo)": f"{draft_hrs_mo:.1f}",
-                     "AI (hrs/mo)": f"{(inquiries * ai_draft_sec / 3600) + ai_review_hrs:.1f}",
+                     "AI Cost/mo": f"$0.00"},
+                    {"Component": "Response Drafting (AI)", "Manual (hrs/mo)": f"{draft_hrs_mo:.1f}",
+                     "AI (hrs/mo)": f"{inquiries * ai_draft_sec / 3600:.2f}",
                      "Manual Cost/mo": f"${draft_hrs_mo * hourly:,.0f}",
+                     "AI Cost/mo": f"$0.00"},
+                    {"Component": "Human Review of Drafts", "Manual (hrs/mo)": "—",
+                     "AI (hrs/mo)": f"{ai_review_hrs:.1f}",
+                     "Manual Cost/mo": "—",
                      "AI Cost/mo": f"${ai_staff_cost:,.2f}"},
                     {"Component": "Sentiment & Risk Reports", "Manual (hrs/mo)": f"{report_hrs_mo:.1f}",
                      "AI (hrs/mo)": f"{4 * ai_report_sec / 3600:.2f}",
@@ -3070,6 +3064,15 @@ def handle_upload(contents, filename, data_type, existing_store):
             return (html.Div("File is empty.", style={"color": COLORS["warning"]}),
                     html.Div(), dash.no_update, dash.no_update)
 
+        # Flatten list/dict columns for safe storage and display
+        for col in df.columns:
+            if df[col].dtype == object:
+                df[col] = df[col].apply(
+                    lambda v: ", ".join(str(i) for i in v) if isinstance(v, list)
+                    else json.dumps(v) if isinstance(v, dict)
+                    else v
+                )
+
         # ── Check if this file was already uploaded ───────────────────────
         existing = sample_data.get(data_type, pd.DataFrame())
         if not existing.empty and "source_file" in existing.columns:
@@ -3081,7 +3084,6 @@ def handle_upload(contents, filename, data_type, existing_store):
                               style={"fontSize": "14px", "color": COLORS["warning"]}),
                 ], style={"padding": "10px 14px", "backgroundColor": "#FFF8E1",
                           "borderRadius": "6px", "border": "1px solid #FFE082"})
-                # Still show preview of existing data from this file
                 preview_df = flatten_for_table(already.head(5))
                 preview_cols = [c for c in preview_df.columns if c not in ("data_source", "source_file")]
                 preview = dash_table.DataTable(
@@ -3097,7 +3099,6 @@ def handle_upload(contents, filename, data_type, existing_store):
 
         # Merge with existing data
         if not existing.empty:
-            # Re-index new IDs to avoid collision with existing data
             if "id" in df.columns and "id" in existing.columns:
                 prefix_map = {"inquiries": "INQ", "social_media": "SM",
                               "news_articles": "NA", "response_templates": "RT"}
@@ -3116,15 +3117,16 @@ def handle_upload(contents, filename, data_type, existing_store):
         else:
             sample_data[data_type] = df
 
-        # Update data_sources to reflect the upload
+        # Update data_sources
         current_sources = sample_data.get("data_sources", [])
         upload_label = f"Uploaded: {filename} ({len(df)} {data_type.replace('_', ' ')})"
         if upload_label not in current_sources:
             current_sources.append(upload_label)
             sample_data["data_sources"] = current_sources
 
+        # Store only a lightweight signal, not the full data (avoids serialization issues)
         store = existing_store or {}
-        store[data_type] = sample_data[data_type].to_dict("records")
+        store["_last_upload"] = {"type": data_type, "file": filename, "count": len(df)}
 
         total = len(sample_data[data_type])
         status = html.Div([
@@ -3134,7 +3136,7 @@ def handle_upload(contents, filename, data_type, existing_store):
         ], style={"padding": "10px 14px", "backgroundColor": "#E8F5E9",
                   "borderRadius": "6px", "border": "1px solid #A5D6A7"})
 
-        # Build preview — limit columns for readability
+        # Build preview
         preview_df = flatten_for_table(df.head(5))
         preview_cols = [c for c in preview_df.columns if c not in ("data_source", "source_file")]
         preview = dash_table.DataTable(
@@ -3142,8 +3144,13 @@ def handle_upload(contents, filename, data_type, existing_store):
             columns=[{"name": c.replace("_", " ").title(), "id": c} for c in preview_cols],
             **TABLE_STYLE,
         )
-        return status, preview, store, (existing_store or {}).get("_sig", 0) + 1
+        # Increment signal to trigger page refresh
+        sig = (store.get("_sig", 0) or 0) + 1
+        store["_sig"] = sig
+        return status, preview, store, sig
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         err = html.Div(f"Error: {e}", style={"color": COLORS["danger"], "fontSize": "14px",
                                               "padding": "10px", "backgroundColor": "#FFEBEE",
                                               "borderRadius": "6px"})
